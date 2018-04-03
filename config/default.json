@@ -1,0 +1,21 @@
+{
+  "general": {
+    "commandPrefix": "!",
+    "botToken": "",
+    "botUsername": "RoleMeister"
+  },
+  "authorizedChannels": ["general"],
+  "authorizedRoles": ["Admin", "Mod"],
+  "messages": [
+    {
+      "text": "Choose your platform(s)!",
+      "options": ["pc", "console", "board"]
+    },
+    {
+      "text": "Choose your game(s) / type(s)!",
+      "options": [
+        "counter-strike", "overwatch", "pubg"
+      ]
+    }
+  ]
+}
