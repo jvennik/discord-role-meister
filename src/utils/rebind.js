@@ -1,10 +1,11 @@
 import { setupAddEmojiCollector } from './collectors/setup-add-emoji-collector';
 import { setupRemoveEmojiCollector } from './collectors/setup-remove-emoji-collector';
+import { updateMessage } from './update';
 
 const config = require('config');
 
-export const rebindMessages =
-async function rebindMessages(client, channel) {
+export const rebindUpdateMessages =
+async function rebindUpdateMessages(client, channel) {
   const bindMessages = [];
   const existingMessages = config.messages;
   const existingMessagesText = [];
@@ -30,9 +31,10 @@ async function rebindMessages(client, channel) {
 
     setupAddEmojiCollector(message, (react) => existingObj.options.indexOf(react.emoji.name) !== -1);
     config.reactMessagesIds.push(message.id);
+    updateMessage(message, existingObj.options);
   });
 
   setupRemoveEmojiCollector(client);
 }
 
-export default rebindMessages;
+export default rebindUpdateMessages;

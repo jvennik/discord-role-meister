@@ -2,7 +2,7 @@ import { messagesExist } from './utils/messages-exist';
 import { isMod } from './utils/permissions';
 import { purge } from './utils/purge';
 import { setup } from './utils/setup';
-import { rebindMessages } from './utils/rebind';
+import { rebindUpdateMessages } from './utils/rebind';
 
 const config = require('config');
 const Discord = require('discord.js');
@@ -19,7 +19,8 @@ client.on('ready', async () => {
     const channel = client.channels.find('name', channelName);
 
     if(messagesExist(channel)) {
-      rebindMessages(client, channel);
+      // Rebind and update messages
+      rebindUpdateMessages(client, channel);
     };
   });
 });
