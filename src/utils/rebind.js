@@ -1,11 +1,13 @@
-import { setupAddEmojiCollector } from './collectors/setup-add-emoji-collector';
-import { setupRemoveEmojiCollector } from './collectors/setup-remove-emoji-collector';
-import { updateMessage } from './update';
+import { setupAddEmojiCollector } from "./collectors/setup-add-emoji-collector";
+import { setupRemoveEmojiCollector } from "./collectors/setup-remove-emoji-collector";
+import { updateMessage } from "./update";
 
-const config = require('config');
+const config = require("config");
 
-export const rebindUpdateMessages =
-async function rebindUpdateMessages(client, channel) {
+export const rebindUpdateMessages = async function rebindUpdateMessages(
+  client,
+  channel
+) {
   const bindMessages = [];
   const existingMessages = config.messages;
   const existingMessagesText = [];
@@ -13,6 +15,10 @@ async function rebindUpdateMessages(client, channel) {
   await existingMessages.forEach(message => {
     existingMessagesText.push(message.text);
   });
+
+  if (!channel) {
+    return;
+  }
 
   await channel.fetchMessages().then(messages => {
     const msgArray = messages.array();
@@ -25,16 +31,19 @@ async function rebindUpdateMessages(client, channel) {
   });
 
   await bindMessages.forEach(message => {
-    const existingObj = existingMessages.find((obj) => {
+    const existingObj = existingMessages.find(obj => {
       return obj.text === message.content;
     });
 
-    setupAddEmojiCollector(message, (react) => existingObj.options.indexOf(react.emoji.name) !== -1);
+    setupAddEmojiCollector(
+      message,
+      react => existingObj.options.indexOf(react.emoji.name) !== -1
+    );
     config.reactMessagesIds.push(message.id);
     updateMessage(message, existingObj.options);
   });
 
   setupRemoveEmojiCollector(client);
-}
+};
 
 export default rebindUpdateMessages;
