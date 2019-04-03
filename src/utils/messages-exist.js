@@ -1,13 +1,16 @@
-const config = require('config');
+const config = require("config");
 
-export const messagesExist =
-async function messagesExist(channel) {
+export const messagesExist = async function messagesExist(channel) {
   const existingMessages = config.messages;
   const existingMessagesText = [];
 
   await existingMessages.forEach(msg => {
     existingMessagesText.push(msg.text);
   });
+
+  if (!channel) {
+    return;
+  }
 
   const allExist = await channel.fetchMessages().then(messages => {
     const msgArray = messages.array();
@@ -25,6 +28,6 @@ async function messagesExist(channel) {
 
     return false;
   });
-}
+};
 
 export default messagesExist;
