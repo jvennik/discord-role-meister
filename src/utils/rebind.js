@@ -16,10 +16,6 @@ export const rebindUpdateMessages = async function rebindUpdateMessages(
     existingMessagesText.push(message.text);
   });
 
-  if (!channel) {
-    return;
-  }
-
   await channel.fetchMessages().then(messages => {
     const msgArray = messages.array();
 

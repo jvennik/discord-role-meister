@@ -8,10 +8,6 @@ export const messagesExist = async function messagesExist(channel) {
     existingMessagesText.push(msg.text);
   });
 
-  if (!channel) {
-    return;
-  }
-
   const allExist = await channel.fetchMessages().then(messages => {
     const msgArray = messages.array();
     const found = [];
