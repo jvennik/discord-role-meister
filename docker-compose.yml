@@ -1,0 +1,17 @@
+version: '3'
+services:
+  role-meister:
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    volumes:
+      - .:/app:rw,cached
+      - /app/node_modules
+    environment:
+      - TZ=Asia/Tokyo
+      - BOT_USERNAME=role-meister
+      - BOT_TOKEN=YOURTOKEN
+      - BOT_OWNER_ID=49237546764337152
+      - BOT_COMMAND_PREFIX=!roles
+      - AUTHORIZED_ROLES=Admin,Mod
+      - TYPEORM_DATABASE=db/db.sqlite3
