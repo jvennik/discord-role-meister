@@ -19,7 +19,7 @@ const config: Config = {
   general: {
     commandPrefix: process.env.BOT_COMMAND_PREFIX ?? '!roles',
     botToken: process.env.BOT_TOKEN,
-    botUsername: process.env.BOT_USERNAME ?? 'role-meister',
+    botUsername: process.env.BOT_USERNAME ?? 'RoleMeister',
     ownerId: process.env.BOT_OWNER_ID,
   },
   authorizedRoles: loadAuthorizedRoles(),
