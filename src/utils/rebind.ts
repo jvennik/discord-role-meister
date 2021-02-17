@@ -28,17 +28,22 @@ export const rebind = async function rebind({
   );
 
   const targetChannel = await boundChannel?.fetch();
-  await (targetChannel as TextChannel).messages.fetch().then((messages) => {
-    const msgArray = messages.array();
-    console.log(`Rebinding for ${guild.id}: ${guild.name}`);
+  try {
+    await (targetChannel as TextChannel).messages.fetch().then((messages) => {
+      const msgArray = messages.array();
+      console.log(`Rebinding for ${guild.id}: ${guild.name}`);
 
-    msgArray.forEach((message) => {
-      if (categoryMessages.indexOf(message.content) !== -1) {
-        // Rebind the message
-        addReactionCollector(message);
-      }
+      msgArray.forEach((message) => {
+        if (categoryMessages.indexOf(message.content) !== -1) {
+          // Rebind the message
+          addReactionCollector(message);
+        }
+      });
     });
-  });
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
 
   return true;
 };
